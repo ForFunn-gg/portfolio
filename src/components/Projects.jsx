@@ -15,7 +15,7 @@ const projects = [
     description: "Dashlife is an e-commerce website built with React js and Tailwind css. It offers a seamless shopping experience with a user-friendly interface, allowing customers to browse and purchase products easily.",
     tags: ["React", "Tailwind CSS"],
     emoji: "🚀",
-    liveUrl: "https://dashlife.netlify.app/",
+    liveUrl: "https://dashlife.netlify.app/login",
     githubUrl: "https://github.com/ForFunn-gg/DASHLIFE",
   },
   {
