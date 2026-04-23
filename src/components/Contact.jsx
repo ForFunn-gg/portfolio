@@ -2,18 +2,13 @@ import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import Fade from "./Fade";
 
-const SERVICE_ID  = "service_v7oyaqk";   
-const TEMPLATE_ID = "template_5v7imre";  
-const PUBLIC_KEY  = "KhUseYLCt-4iEdT0j";  
+const SERVICE_ID  = "service_v7oyaqk";
+const TEMPLATE_ID = "template_5v7imre";
+const PUBLIC_KEY  = "KhUseYLCt-4iEdT0j";
 
 const Contact = () => {
   const formRef = useRef();
-  const [form, setForm]       = useState({ name: "", email: "", message: "" });
-  const [status, setStatus]   = useState("idle"); 
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const [status, setStatus] = useState("idle");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,9 +17,9 @@ const Contact = () => {
     try {
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY);
       setStatus("success");
-      setForm({ name: "", email: "", message: "" });
+      formRef.current.reset(); 
     } catch (err) {
-      console.error(err);
+      console.error("EmailJS Error:", err);
       setStatus("error");
     }
   };
@@ -39,14 +34,14 @@ const Contact = () => {
           </p>
         </Fade>
         <Fade delay={0.1}>
-          <h2 className="font-display text-5xl sm:text-6xl text-white mb-4 leading-tight">
+          <h2 className="font-display text-5xl sm:text-6xl text-zinc-100 mb-4 leading-tight">
             Let's<br />
             <em className="text-zinc-500">Connect.</em>
           </h2>
         </Fade>
         <Fade delay={0.2}>
           <p className="text-zinc-500 leading-relaxed mb-12">
-            Fill out the form below and I'll get back to you as soon as possible.
+            Fill out the form and I'll get back to you as soon as possible.
           </p>
         </Fade>
 
@@ -54,47 +49,41 @@ const Contact = () => {
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
 
             <div>
-              <label className="block text-xs font-mono text-white mb-2 uppercase tracking-widest">
+              <label className="block text-xs font-mono text-zinc-500 mb-2 uppercase tracking-widest">
                 Your Name
               </label>
               <input
                 type="text"
                 name="from_name"
-                value={form.form_name}
-                onChange={handleChange}
                 required
-                placeholder="YourName"
-                className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 font-mono focus:outline-none focus:border-emerald-500 transition-colors duration-200"
+                placeholder="Your Name"
+                className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-600 font-mono focus:outline-none focus:border-emerald-500 transition-colors duration-200"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-mono text-white mb-2 uppercase tracking-widest">
+              <label className="block text-xs font-mono text-zinc-500 mb-2 uppercase tracking-widest">
                 Your Email
               </label>
               <input
                 type="email"
                 name="from_email"
-                value={form.form_email}
-                onChange={handleChange}
                 required
-                placeholder="Youremail@gmail.com"
-                className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 font-mono focus:outline-none focus:border-emerald-500 transition-colors duration-200"
+                placeholder="Your@email.com"
+                className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-600 font-mono focus:outline-none focus:border-emerald-500 transition-colors duration-200"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-mono text-white mb-2 uppercase tracking-widest">
+              <label className="block text-xs font-mono text-zinc-500 mb-2 uppercase tracking-widest">
                 Message
               </label>
               <textarea
                 name="message"
-                value={form.for_message}
-                onChange={handleChange}
                 required
                 rows={5}
                 placeholder="Hi Maron, I'd like to work with you..."
-                className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 font-mono focus:outline-none focus:border-emerald-500 transition-colors duration-200 resize-none"
+                className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-600 font-mono focus:outline-none focus:border-emerald-500 transition-colors duration-200 resize-none"
               />
             </div>
 
@@ -117,7 +106,7 @@ const Contact = () => {
             {status === "error" && (
               <div className="text-center py-3 px-4 rounded-xl bg-red-500/10 border border-red-500/30">
                 <p className="text-red-400 text-sm font-mono">
-                  ✗ Something went wrong. Please try again or email me directly.
+                  ✗ Something went wrong. Please try again.
                 </p>
               </div>
             )}
@@ -126,12 +115,13 @@ const Contact = () => {
         </Fade>
 
         <Fade delay={0.4}>
-          <div className="border-t text-white mt-16 pt-10 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <span className="font-mono text-xs text-white">
+          <div className="border-t border-zinc-800 mt-16 pt-10 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <span className="font-mono text-xs text-zinc-600">
               © 2025 Maron Jake Dinopol — All rights reserved
             </span>
           </div>
         </Fade>
+
       </div>
     </section>
   );
