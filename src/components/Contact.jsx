@@ -12,15 +12,28 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (status === "sending") return;
     setStatus("sending");
 
     try {
+      const templateParams = {
+        from_name: formRef.current.from_name.value,
+        from_email: formRef.current.from_email.value,
+        message: formRef.current.message.value,
+      }
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY);
       setStatus("success");
-      formRef.current.reset(); 
+      formRef.current.reset();
     } catch (err) {
       console.error("EmailJS Error:", err);
       setStatus("error");
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      formRef.current.requestSubmit();
     }
   };
 
@@ -48,6 +61,7 @@ const Contact = () => {
         <Fade delay={0.3}>
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
 
+        
             <div>
               <label className="block text-xs font-mono text-zinc-500 mb-2 uppercase tracking-widest">
                 Your Name
@@ -57,10 +71,18 @@ const Contact = () => {
                 name="from_name"
                 required
                 placeholder="Your Name"
+                onKeyDown={(e) => {
+                  
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    document.querySelector("input[name='from_email']").focus();
+                  }
+                }}
                 className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-600 font-mono focus:outline-none focus:border-emerald-500 transition-colors duration-200"
               />
             </div>
 
+           
             <div>
               <label className="block text-xs font-mono text-zinc-500 mb-2 uppercase tracking-widest">
                 Your Email
@@ -69,24 +91,37 @@ const Contact = () => {
                 type="email"
                 name="from_email"
                 required
-                placeholder="Your@email.com"
+                placeholder="your.email@example.com"
+                onKeyDown={(e) => {
+                 
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    document.querySelector("textarea[name='message']").focus();
+                  }
+                }}
                 className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-600 font-mono focus:outline-none focus:border-emerald-500 transition-colors duration-200"
               />
             </div>
 
+           
             <div>
               <label className="block text-xs font-mono text-zinc-500 mb-2 uppercase tracking-widest">
                 Message
+                <span className="ml-2 normal-case text-zinc-600">
+                  (Enter to send · Shift+Enter for new line)
+                </span>
               </label>
               <textarea
                 name="message"
                 required
                 rows={5}
                 placeholder="Hi Maron, I'd like to work with you..."
+                onKeyDown={handleKeyDown}
                 className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-600 font-mono focus:outline-none focus:border-emerald-500 transition-colors duration-200 resize-none"
               />
             </div>
 
+            
             <button
               type="submit"
               disabled={status === "sending"}
@@ -116,7 +151,7 @@ const Contact = () => {
 
         <Fade delay={0.4}>
           <div className="border-t border-zinc-800 mt-16 pt-10 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <span className="font-mono text-xs text-zinc-600">
+            <span className="font-mono text-xs text-white/50">
               © 2025 Maron Jake Dinopol — All rights reserved
             </span>
           </div>
