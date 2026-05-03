@@ -19,12 +19,12 @@ const projects = [
     githubUrl: "https://github.com/ForFunn-gg/DASHLIFE",
   },
   {
-    title: "Your Project 3",
-    description: "Describe what this project does, the problem it solves, and what you learned building it.",
-    tags: ["React", "Node.js", "MongoDB"],
-    emoji: "⚡",
-    liveUrl: "https://your-live-demo.com",
-    githubUrl: "https://github.com/yourusername/project3",
+     title: "FinanceTracker",
+  description: "A full-stack personal finance tracker to manage income and expenses, visualize spending by category with charts, and support multiple currencies.",
+  tags: ["React", "Node.js", "MongoDB", "Express", "Chart.js"],
+  emoji: "💰",
+  liveUrl: "https://finance-tracker-ruddy-alpha.vercel.app",
+  githubUrl: "https://github.com/ForFunn-gg/FinanceTracker",
   },
 ];
 
