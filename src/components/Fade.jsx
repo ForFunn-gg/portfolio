@@ -1,4 +1,4 @@
-import useFade from "../hook/useFade";
+import useFade from "../hooks/useFade";
 
 const Fade = ({ children, delay = 0, dir = "up", className = "" }) => {
   const { ref, visible } = useFade();

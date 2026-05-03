@@ -108,7 +108,7 @@ const Contact = () => {
               <label className="block text-xs font-mono text-zinc-500 mb-2 uppercase tracking-widest">
                 Message
                 <span className="ml-2 normal-case text-zinc-600">
-                  (Enter to send · Shift+Enter for new line)
+                 
                 </span>
               </label>
               <textarea
