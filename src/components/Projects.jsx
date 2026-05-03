@@ -43,7 +43,7 @@ const Projects = () => (
             <em className="text-zinc-500">Built</em>
           </h2>
           <p className="text-zinc-600 text-sm font-mono max-w-xs">
-            Edit <code className="text-emerald-700">Projects.jsx</code> to add your own projects.
+          
           </p>
         </div>
       </Fade>
